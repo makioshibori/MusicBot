@@ -67,6 +67,7 @@ class Config:
         self.bound_channels = config.get('Chat', 'BindToChannels', fallback=ConfigDefaults.bound_channels)
         self.autojoin_channels =  config.get('Chat', 'AutojoinChannels', fallback=ConfigDefaults.autojoin_channels)
 
+        self.minimum_to_raid = config.getint('MusicBot', 'MinimumToRaid', fallback=ConfigDefaults.minimum_to_raid)
         self.default_volume = config.getfloat('MusicBot', 'DefaultVolume', fallback=ConfigDefaults.default_volume)
         self.skips_required = config.getint('MusicBot', 'SkipsRequired', fallback=ConfigDefaults.skips_required)
         self.skip_ratio_required = config.getfloat('MusicBot', 'SkipRatio', fallback=ConfigDefaults.skip_ratio_required)
@@ -175,7 +176,8 @@ class ConfigDefaults:
     command_prefix = '!'
     bound_channels = set()
     autojoin_channels = set()
-
+        
+    minimum_to_raid = 5
     default_volume = 0.15
     skips_required = 4
     skip_ratio_required = 0.5

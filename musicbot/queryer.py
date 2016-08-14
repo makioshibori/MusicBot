@@ -7,7 +7,6 @@ import re
 
 from enum import Enum
 from array import array
-from collections import deque
 from shutil import get_terminal_size
 from lxml import etree
 
@@ -68,8 +67,14 @@ class ServerQueryer(EventEmitter):
                 self.red, self.green, self.blue = await self.get_tw_players()
                 self.emit('query-finished', message, self)
 
+            except TimeoutError as e:                
+                print("Query timed out.")
+                # Retry playing the next entry in a sec.
+                self.loop.call_later(0.1, self.query)
+                return
+
             except Exception as e:
-                print("Failed to get entry.")
+                print("Failed to get current TribeWarfare status.")
                 traceback.print_exc()
                 # Retry playing the next entry in a sec.
                 self.loop.call_later(0.1, self.query)
