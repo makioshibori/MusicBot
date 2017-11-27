@@ -231,7 +231,10 @@ class URLPlaylistEntry(BasePlaylistEntry):
 
         # Search for file name with an image suffix
         imgPattern = re.compile(self.filename.lstrip(self.download_folder + os.sep).rsplit('.', 1)[0] + '(\.(jpg|jpeg|png|gif|bmp))$', re.IGNORECASE)
-        self.filename_thumbnail = next(os.path.join(self.download_folder, f) for f in os.listdir(self.download_folder) if imgPattern.search(f))
+        try:
+            self.filename_thumbnail = next(os.path.join(self.download_folder, f) for f in os.listdir(self.download_folder) if imgPattern.search(f))
+        except StopIteration as e:
+            self.filename_thumbnail = None
 
         if hash:
             # insert the 8 last characters of the file hash to the file name to ensure uniqueness
