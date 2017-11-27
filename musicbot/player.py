@@ -103,7 +103,7 @@ class MusicPlayer(EventEmitter):
         self.playlist.on('entry-added', self.on_entry_added)
         self.playlist.on('entry-removed', self.on_entry_removed)
         self._volume = bot.config.default_volume
-        self.repeatState = MusicPlayerRepeatState.NONE
+        self.repeatState = MusicPlayerRepeatState.SINGLE
         self.skipRepeat = False
 
         self._play_lock = asyncio.Lock()
